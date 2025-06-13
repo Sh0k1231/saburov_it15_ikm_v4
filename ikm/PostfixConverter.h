@@ -8,15 +8,15 @@ using namespace std;
 
 class PostfixConverter {
 private:
-    int tempCounter; //счетчик для временных переменных
+    int tempCounter; //СЃС‡РµС‚С‡РёРє РґР»СЏ РІСЂРµРјРµРЅРЅС‹С… РїРµСЂРµРјРµРЅРЅС‹С…
 
-    bool isOperator(char c); //проверка является ли символ оператором
-    bool isOperand(char c); //проверка является ли символ операндом
-    string generateTempName(); //генерация имени временной переменной
+    bool isOperator(char c); //РїСЂРѕРІРµСЂРєР° СЏРІР»СЏРµС‚СЃСЏ Р»Рё СЃРёРјРІРѕР» РѕРїРµСЂР°С‚РѕСЂРѕРј
+    bool isOperand(char c); //РїСЂРѕРІРµСЂРєР° СЏРІР»СЏРµС‚СЃСЏ Р»Рё СЃРёРјРІРѕР» РѕРїРµСЂР°РЅРґРѕРј
+    string generateTempName(); //РіРµРЅРµСЂР°С†РёСЏ РёРјРµРЅРё РІСЂРµРјРµРЅРЅРѕР№ РїРµСЂРµРјРµРЅРЅРѕР№
 
 public:
     PostfixConverter();
-    vector<string> convert(const string& expression); //основной метод преобразования
+    vector<string> convert(const string& expression); //РѕСЃРЅРѕРІРЅРѕР№ РјРµС‚РѕРґ РїСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёСЏ
 };
 
 #endif

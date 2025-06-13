@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include <stack>
+using namespace std;
 
 class PostfixConverter {
 private:
@@ -11,11 +12,11 @@ private:
 
     bool isOperator(char c); //проверка является ли символ оператором
     bool isOperand(char c); //проверка является ли символ операндом
-    std::string generateTempName(); //генерация имени временной переменной
+    string generateTempName(); //генерация имени временной переменной
 
 public:
     PostfixConverter();
-    std::vector<std::string> convert(const std::string& expression); //основной метод преобразования
+    vector<string> convert(const string& expression); //основной метод преобразования
 };
 
 #endif

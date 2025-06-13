@@ -5,29 +5,29 @@ using namespace std;
 
 PostfixConverter::PostfixConverter() : tempCounter(1) {}
 
-//проверка оператора
+//РїСЂРѕРІРµСЂРєР° РѕРїРµСЂР°С‚РѕСЂР°
 bool PostfixConverter::isOperator(char c) {
     return c == '+' || c == '-' || c == '*' || c == '/';
 }
 
-//проверка операнда
+//РїСЂРѕРІРµСЂРєР° РѕРїРµСЂР°РЅРґР°
 bool PostfixConverter::isOperand(char c) {
     return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
 }
 
-//генерация имени временной переменной
+//РіРµРЅРµСЂР°С†РёСЏ РёРјРµРЅРё РІСЂРµРјРµРЅРЅРѕР№ РїРµСЂРµРјРµРЅРЅРѕР№
 string PostfixConverter::generateTempName() {
     return "T" + to_string(tempCounter++);
 }
 
-//основной метод преобразования
+//РѕСЃРЅРѕРІРЅРѕР№ РјРµС‚РѕРґ РїСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёСЏ
 vector<string> PostfixConverter::convert(const string& expression) {
     if (expression.empty()) {
-        throw runtime_error("Пустое выражение");
+        throw runtime_error("РџСѓСЃС‚РѕРµ РІС‹СЂР°Р¶РµРЅРёРµ");
     }
 
-    stack<string> operands; //стек для хранения операндов
-    vector<string> instructions; //вектор для хранения инструкций
+    stack<string> operands; //СЃС‚РµРє РґР»СЏ С…СЂР°РЅРµРЅРёСЏ РѕРїРµСЂР°РЅРґРѕРІ
+    vector<string> instructions; //РІРµРєС‚РѕСЂ РґР»СЏ С…СЂР°РЅРµРЅРёСЏ РёРЅСЃС‚СЂСѓРєС†РёР№
 
     for (char c : expression) {
         if (isOperand(c)) {
@@ -35,7 +35,7 @@ vector<string> PostfixConverter::convert(const string& expression) {
         }
         else if (isOperator(c)) {
             if (operands.size() < 2) {
-                throw runtime_error("Некорректное постфиксное выражение: недостаточно операндов для оператора");
+                throw runtime_error("РќРµРєРѕСЂСЂРµРєС‚РЅРѕРµ РїРѕСЃС‚С„РёРєСЃРЅРѕРµ РІС‹СЂР°Р¶РµРЅРёРµ: РЅРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ РѕРїРµСЂР°РЅРґРѕРІ РґР»СЏ РѕРїРµСЂР°С‚РѕСЂР°");
             }
 
             string operand2 = operands.top();
@@ -45,7 +45,7 @@ vector<string> PostfixConverter::convert(const string& expression) {
 
             string tempName = generateTempName();
 
-            //генерация инструкций для операции
+            //РіРµРЅРµСЂР°С†РёСЏ РёРЅСЃС‚СЂСѓРєС†РёР№ РґР»СЏ РѕРїРµСЂР°С†РёРё
             instructions.push_back("LD " + operand1);
 
             switch (c) {
@@ -62,19 +62,19 @@ vector<string> PostfixConverter::convert(const string& expression) {
                 instructions.push_back("DV " + operand2);
                 break;
             default:
-                throw runtime_error("Неизвестный оператор");
+                throw runtime_error("РќРµРёР·РІРµСЃС‚РЅС‹Р№ РѕРїРµСЂР°С‚РѕСЂ");
             }
 
             instructions.push_back("ST " + tempName);
             operands.push(tempName);
         }
         else {
-            throw runtime_error("Некорректный символ в выражении: " + string(1, c));
+            throw runtime_error("РќРµРєРѕСЂСЂРµРєС‚РЅС‹Р№ СЃРёРјРІРѕР» РІ РІС‹СЂР°Р¶РµРЅРёРё: " + string(1, c));
         }
     }
 
     if (operands.size() != 1) {
-        throw runtime_error("Некорректное постфиксное выражение: остались лишние операнды");
+        throw runtime_error("РќРµРєРѕСЂСЂРµРєС‚РЅРѕРµ РїРѕСЃС‚С„РёРєСЃРЅРѕРµ РІС‹СЂР°Р¶РµРЅРёРµ: РѕСЃС‚Р°Р»РёСЃСЊ Р»РёС€РЅРёРµ РѕРїРµСЂР°РЅРґС‹");
     }
     return instructions;
 }

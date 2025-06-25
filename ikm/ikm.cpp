@@ -1,35 +1,29 @@
-﻿#include <iostream>
-#include <string>
-#include <stack>
-#include <stdexcept>
 #include "PostfixConverter.h"
-
-using namespace std;
+#include <iostream>
 
 int main() {
     setlocale(LC_ALL, "Russian");
+    //вывод информации о программе
+    cout << "=== конвертер постфиксных выражений ===" << endl;
+
+    //ввод выражения
+    cout << "введите выражение: ";
+    string expression;
+    getline(cin, expression);
+
     try {
-        cout << "=== Конвертер постфиксных выражений в инструкции абстрактной машины ===" << endl;
-        cout << "Введите постфиксное выражение (операнды - одиночные буквы, операторы: + - * /):" << endl;
-
-        string expression;
-        getline(cin, expression);
-
-        if (expression.empty()) {
-            throw runtime_error("Ошибка: Введено пустое выражение.");
-        }
-
+        //обработка выражения
         PostfixConverter converter;
-        vector<string> instructions = converter.convert(expression);
+        converter.convert(expression);
 
-        cout << "\nСгенерированные инструкции:" << endl;
-        for (const string& instr : instructions) {
-            cout << instr << endl;
-        }
-
+        //вывод результата
+        cout << "\nрезультат:" << endl;
+        converter.printInstructions();
     }
     catch (const exception& e) {
-        cerr << "Ошибка: " << e.what() << endl;
+        //обработка ошибок
+        cerr << "\nошибка: " << e.what() << endl;
+        cerr << "введите выражение в правильном формате" << endl;
         return 1;
     }
 
